@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CSRMS Campus Service Request Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-card animate-fade-in">
+            <div class="auth-header">
+                <h1>CSRMS Portal</h1>
+                <p>Campus Service Request Management System</p>
+            </div>
+            
+            <div id="alert-msg" class="alert" style="display: none;"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Campus Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="user@campus.edu" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <p>New to CSRMS? <a href="/register">Register an account</a></p>
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); font-size: 0.75rem; text-align: left; color: var(--text-muted);">
+                    <p style="font-weight: 600; margin-bottom: 0.25rem;">Evaluation Accounts:</p>
+                    <p>• Admin: <code>admin@campus.edu</code> / <code>AdminPass123!</code></p>
+                    <p>• Staff: <code>staff@campus.edu</code> / <code>StaffPass123!</code></p>
+                    <p>• Student: <code>requester@campus.edu</code> / <code>RequesterPass123!</code></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

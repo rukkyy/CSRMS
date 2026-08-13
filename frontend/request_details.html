@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Request Details - CSRMS</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <h2>CSRMS Campus Portal</h2>
+            </div>
+            <div class="user-nav">
+                <div class="user-info">
+                    <span class="user-name" id="nav-user-name">Loading...</span>
+                    <span class="user-role-badge" id="nav-user-role">Role</span>
+                </div>
+                <button class="btn btn-secondary" id="btn-logout" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="app-container">
+        <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <h1 style="font-size: 1.75rem; font-weight: 700;">Request Details <span id="detail-id" style="color:var(--text-secondary);">#...</span></h1>
+            <a href="/dashboard" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Back to Dashboard</a>
+        </div>
+
+        <div class="details-grid">
+            <!-- Left Side: Request Information Card -->
+            <section class="details-card">
+                <div class="details-header">
+                    <div class="details-title-row">
+                        <h2 id="detail-title" style="font-size: 1.5rem; font-weight: 700; color: #fff;">Loading Subject...</h2>
+                    </div>
+
+                    <div class="meta-info-grid">
+                        <div class="meta-item">
+                            <label>Status</label>
+                            <span id="detail-status">Loading...</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Priority</label>
+                            <span id="detail-priority">Loading...</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Category</label>
+                            <span id="detail-category">Loading...</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Location</label>
+                            <span id="detail-location">Loading...</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Submitted By</label>
+                            <span id="detail-requester">Loading...</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Assigned Maintenance Staff</label>
+                            <span id="detail-assignee">Loading...</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Created Timestamp</label>
+                            <span id="detail-created">Loading...</span>
+                        </div>
+                        <div class="meta-item">
+                            <label>Last Updated</label>
+                            <span id="detail-updated">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="description-box">
+                    <label>Description of Issue</label>
+                    <p id="detail-description">Loading description content...</p>
+                </div>
+
+                <!-- Hidden by default, shown when resolved -->
+                <div class="resolution-box" id="detail-resolution-box" style="display: none;">
+                    <label>Resolution Notes</label>
+                    <div class="resolution-content" id="detail-resolution">No resolution notes provided.</div>
+                </div>
+            </section>
+
+            <!-- Right Side: Interactive Action panel based on role permissions -->
+            <aside class="management-card" id="management-sidebar">
+                <h3>Management Operations</h3>
+                <div id="management-panel-content">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Checking authorization permissions...</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer>
+        <p>Campus Service Request Management System (CSRMS) © 2026. Advanced Software Engineering Project.</p>
+    </footer>
+
+    <!-- Script Dependencies -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/request.js"></script>
+</body>
+</html>

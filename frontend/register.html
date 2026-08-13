@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CSRMS Campus Service Request Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-card animate-fade-in">
+            <div class="auth-header">
+                <h1>Create Account</h1>
+                <p>Register as a Requester to submit maintenance tickets</p>
+            </div>
+
+            <div id="alert-msg" class="alert" style="display: none;"></div>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Jane Doe" required minlength="2" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Campus Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="jane.doe@campus.edu" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" class="form-control" placeholder="Re-enter password" required minlength="6" autocomplete="new-password">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already registered? <a href="/login">Sign In here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CSRMS</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <h2>CSRMS Campus Portal</h2>
+            </div>
+            <div class="user-nav">
+                <div class="user-info">
+                    <span class="user-name" id="nav-user-name">Loading...</span>
+                    <span class="user-role-badge" id="nav-user-role">Role</span>
+                </div>
+                <button class="btn btn-secondary" id="btn-logout" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="app-container">
+        <!-- 1. Admin Stats Cards -->
+        <div class="stats-grid" id="admin-stats" style="display: none;">
+            <div class="stat-card">
+                <span class="stat-label">Total Service Requests</span>
+                <span class="stat-value" id="admin-total-reqs">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Unassigned (Submitted)</span>
+                <span class="stat-value" id="admin-submitted">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Assigned to Staff</span>
+                <span class="stat-value" id="admin-assigned">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">In Progress Work</span>
+                <span class="stat-value" id="admin-inprogress">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Resolved (Pending Close)</span>
+                <span class="stat-value" id="admin-resolved">0</span>
+            </div>
+        </div>
+
+        <!-- 2. Maintenance Staff Stats Cards -->
+        <div class="stats-grid" id="staff-stats" style="display: none;">
+            <div class="stat-card">
+                <span class="stat-label">Total Assigned Tickets</span>
+                <span class="stat-value" id="staff-total-assigned">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Pending Acceptance</span>
+                <span class="stat-value" id="staff-pending">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Active (In Progress)</span>
+                <span class="stat-value" id="staff-inprogress">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Resolved Work Orders</span>
+                <span class="stat-value" id="staff-resolved">0</span>
+            </div>
+        </div>
+
+        <!-- 3. Requester Stats Cards -->
+        <div class="stats-grid" id="requester-stats" style="display: none;">
+            <div class="stat-card">
+                <span class="stat-label">My Total Requests</span>
+                <span class="stat-value" id="req-total">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Pending / In Progress</span>
+                <span class="stat-value" id="req-pending">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Resolved Issues</span>
+                <span class="stat-value" id="req-resolved">0</span>
+            </div>
+        </div>
+
+        <!-- Action Items Bar -->
+        <div class="dashboard-actions">
+            <div class="filters-bar">
+                <select id="filter-status" class="filter-select">
+                    <option value="">All Statuses</option>
+                    <option value="SUBMITTED">Submitted</option>
+                    <option value="ASSIGNED">Assigned</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="RESOLVED">Resolved</option>
+                    <option value="CLOSED">Closed</option>
+                </select>
+                <select id="filter-priority" class="filter-select">
+                    <option value="">All Priorities</option>
+                    <option value="LOW">Low Priority</option>
+                    <option value="MEDIUM">Medium Priority</option>
+                    <option value="HIGH">High Priority</option>
+                    <option value="URGENT">Urgent Priority</option>
+                </select>
+            </div>
+            
+            <a href="/request/create" class="btn btn-primary" id="btn-create-request" style="display: none; width: auto; gap: 0.5rem;">
+                + Submit Service Request
+            </a>
+        </div>
+
+        <!-- Requests Data Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">ID</th>
+                        <th style="width: 25%;">Title</th>
+                        <th style="width: 15%;">Category</th>
+                        <!-- Dynamic columns inserted depending on role context -->
+                        <th style="width: 15%;">Location</th>
+                        <th style="width: 12%;">Priority</th>
+                        <th style="width: 13%;">Status</th>
+                        <th style="width: 10%;">Submitted Date</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-table-body">
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <h3>Loading records...</h3>
+                            <p>Connecting to campus service registry...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer>
+        <p>Campus Service Request Management System (CSRMS) © 2026. Advanced Software Engineering Project.</p>
+    </footer>
+
+    <!-- Script Dependencies -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
