@@ -194,8 +194,9 @@
         // Dynamic Role Welcome Text
         const user = JSON.parse(localStorage.getItem("csrms_user") || "{}");
         if (user && user.name) {
-            document.getElementById("welcome-title").textContent = `Welcome back, ${user.name.split(" ")[0]} 👋`;
+            document.getElementById("welcome-title").textContent = `Welcome back, ${user.name.split(" ")[0]}`;
         }
+
     </script>
 </body>
 </html>
