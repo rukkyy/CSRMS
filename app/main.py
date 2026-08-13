@@ -42,7 +42,8 @@ app.mount("/js", StaticFiles(directory=os.path.join(FRONTEND_DIR, "js")), name="
 # Clean URL Routing for HTML frontend files
 @app.get("/", response_class=HTMLResponse)
 def read_root():
-    return FileResponse(os.path.join(FRONTEND_DIR, "login.html"))
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
 
 @app.get("/login", response_class=HTMLResponse)
 def read_login():

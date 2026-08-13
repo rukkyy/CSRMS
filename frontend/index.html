@@ -3,17 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Service Request Management System</title>
-    <script>
-        // Direct entry-point redirect
-        if (localStorage.getItem("csrms_token")) {
-            window.location.replace("/dashboard");
-        } else {
-            window.location.replace("/login");
+    <title>Campus Service Request Management System (CSRMS)</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:,">
+    <style>
+        /* Dedicated Landing Page Styles */
+        .landing-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
         }
-    </script>
+
+        .landing-hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(40px);
+        }
+
+        .badge-announcement {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .landing-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 40%, #a5f3fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .landing-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .landing-subtitle {
+            color: var(--text-sub);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-section {
+            padding: 4rem 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(var(--blur-glass));
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-active);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .feature-icon-wrapper {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon-wrapper i {
+            color: var(--primary);
+            font-size: 1.35rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Top Navbar for Landing Page */
+        .landing-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 100%;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .landing-nav .logo-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: var(--cyan-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
 <body>
-    <p style="text-align: center; margin-top: 10%;">Redirecting...</p>
+    <!-- Public Navbar -->
+    <nav class="landing-nav">
+        <div class="logo-section">
+            <h2><i class="fa-solid fa-hotel" style="color: #3b82f6; margin-right: 0.5rem;"></i>CSRMS Portal</h2>
+        </div>
+        <div>
+            <a href="/login" class="btn btn-secondary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- Hero Content -->
+    <main style="flex: 1;">
+        <section class="landing-hero">
+            <div class="badge-announcement">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Campus Facilities & Maintenance</span>
+            </div>
+            <h1 class="landing-title">Modern Campus Service Request System</h1>
+            <p class="landing-subtitle">
+                A centralized, secure digital hub to report facilities issues, track technician workloads, and audit service requests in real-time.
+            </p>
+            <div class="cta-group">
+                <a href="/login" class="btn btn-primary" style="width: auto;">
+                    <span>Launch Portal</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="/register" class="btn btn-secondary">
+                    <span>Register Account</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features-section">
+            <div class="section-header">
+                <h2>Role-Based Capabilities</h2>
+                <p style="color: var(--text-sub); font-size: 1rem;">Decoupled operational boundaries for different user types.</p>
+            </div>
+            
+            <div class="features-grid">
+                <!-- Card 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </div>
+                    <h3>Requesters Portal</h3>
+                    <p>Students and faculty can report repairs, select categories (Electrical, Plumbing, HVAC), map locations, monitor status updates, and verify/close resolved work orders.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper" style="background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.25);">
+                        <i class="fa-solid fa-user-gear" style="color: #8b5cf6;"></i>
+                    </div>
+                    <h3>Technician Workbench</h3>
+                    <p>Maintenance staff receive specific ticket allocations, mark assignments as active (In Progress), and submit descriptive resolution notes to resolve issues.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.25);">
+                        <i class="fa-solid fa-chart-line" style="color: #06b6d4;"></i>
+                    </div>
+                    <h3>Admin Console</h3>
+                    <p>Facilities managers can monitor overall campus workloads, adjust prioritization, assign staff members to submitted tickets, and manage active users.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="app-footer">
+        <p>Campus Service Request Management System (CSRMS) © 2026. MSc Advanced Software Engineering Project.</p>
+    </footer>
+
+    <script>
+        // Redirect to dashboard if already authenticated
+        if (localStorage.getItem("csrms_token")) {
+            window.location.replace("/dashboard");
+        }
+    </script>
 </body>
 </html>
