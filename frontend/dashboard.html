@@ -3,149 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - CSRMS</title>
+    <title>Dashboard - Campus Service Request Management System</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="data:,">
 </head>
 <body>
-    <!-- Top Navigation Header -->
-    <header class="app-header">
-        <div class="header-container">
-            <div class="logo-section">
-                <h2>CSRMS Campus Portal</h2>
-            </div>
-            <div class="user-nav">
-                <div class="user-info">
-                    <span class="user-name" id="nav-user-name">Loading...</span>
-                    <span class="user-role-badge" id="nav-user-role">Role</span>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <i class="fa-solid fa-hotel" style="color: #3b82f6; font-size: 1.5rem;"></i>
+                    <h2>CSRMS Portal</h2>
                 </div>
-                <button class="btn btn-secondary" id="btn-logout" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Logout</button>
+                
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item active">
+                        <a href="/dashboard">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item" id="btn-create-request" style="display: none;">
+                        <a href="/request/create">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <span>Submit Request</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </header>
 
-    <!-- Main Workspace -->
-    <main class="app-container">
-        <!-- 1. Admin Stats Cards -->
-        <div class="stats-grid" id="admin-stats" style="display: none;">
-            <div class="stat-card">
-                <span class="stat-label">Total Service Requests</span>
-                <span class="stat-value" id="admin-total-reqs">0</span>
+            <!-- Profile Card -->
+            <div class="sidebar-profile">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="profile-meta">
+                        <span class="name" id="nav-user-name">Loading User...</span>
+                        <span class="role" id="nav-user-role">Role</span>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" id="btn-logout" style="padding: 0.6rem 1rem; width: 100%;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                </button>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Unassigned (Submitted)</span>
-                <span class="stat-value" id="admin-submitted">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Assigned to Staff</span>
-                <span class="stat-value" id="admin-assigned">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">In Progress Work</span>
-                <span class="stat-value" id="admin-inprogress">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Resolved (Pending Close)</span>
-                <span class="stat-value" id="admin-resolved">0</span>
-            </div>
-        </div>
+        </aside>
 
-        <!-- 2. Maintenance Staff Stats Cards -->
-        <div class="stats-grid" id="staff-stats" style="display: none;">
-            <div class="stat-card">
-                <span class="stat-label">Total Assigned Tickets</span>
-                <span class="stat-value" id="staff-total-assigned">0</span>
+        <!-- Main Workspace -->
+        <div class="main-content">
+            <!-- Header Welcome Card -->
+            <div class="welcome-banner">
+                <div>
+                    <h1 id="welcome-title">Campus Workspace</h1>
+                    <p style="color: var(--text-sub); font-size: 0.95rem;">Manage, track, and assign campus maintenance requests dynamically.</p>
+                </div>
+                <div>
+                    <span id="date-indicator" style="font-size: 0.85rem; font-weight: 700; color: var(--text-sub); border: 1px solid var(--border-glass); padding: 0.5rem 1rem; border-radius: var(--radius-sm); background-color: rgba(0,0,0,0.2);">
+                        <i class="fa-solid fa-calendar-day" style="margin-right: 0.5rem;"></i>
+                        <span id="current-date-text">Operations Panel</span>
+                    </span>
+                </div>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Pending Acceptance</span>
-                <span class="stat-value" id="staff-pending">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Active (In Progress)</span>
-                <span class="stat-value" id="staff-inprogress">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Resolved Work Orders</span>
-                <span class="stat-value" id="staff-resolved">0</span>
-            </div>
-        </div>
 
-        <!-- 3. Requester Stats Cards -->
-        <div class="stats-grid" id="requester-stats" style="display: none;">
-            <div class="stat-card">
-                <span class="stat-label">My Total Requests</span>
-                <span class="stat-value" id="req-total">0</span>
+            <!-- 1. Admin Stats Cards -->
+            <div class="stats-grid" id="admin-stats" style="display: none;">
+                <div class="stat-card">
+                    <span class="stat-label">Total Requests</span>
+                    <span class="stat-value" id="admin-total-reqs">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Unassigned</span>
+                    <span class="stat-value" id="admin-submitted">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Assigned</span>
+                    <span class="stat-value" id="admin-assigned">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">In Progress</span>
+                    <span class="stat-value" id="admin-inprogress">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Resolved</span>
+                    <span class="stat-value" id="admin-resolved">0</span>
+                </div>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Pending / In Progress</span>
-                <span class="stat-value" id="req-pending">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Resolved Issues</span>
-                <span class="stat-value" id="req-resolved">0</span>
-            </div>
-        </div>
 
-        <!-- Action Items Bar -->
-        <div class="dashboard-actions">
-            <div class="filters-bar">
-                <select id="filter-status" class="filter-select">
-                    <option value="">All Statuses</option>
-                    <option value="SUBMITTED">Submitted</option>
-                    <option value="ASSIGNED">Assigned</option>
-                    <option value="IN_PROGRESS">In Progress</option>
-                    <option value="RESOLVED">Resolved</option>
-                    <option value="CLOSED">Closed</option>
-                </select>
-                <select id="filter-priority" class="filter-select">
-                    <option value="">All Priorities</option>
-                    <option value="LOW">Low Priority</option>
-                    <option value="MEDIUM">Medium Priority</option>
-                    <option value="HIGH">High Priority</option>
-                    <option value="URGENT">Urgent Priority</option>
-                </select>
+            <!-- 2. Maintenance Staff Stats Cards -->
+            <div class="stats-grid" id="staff-stats" style="display: none;">
+                <div class="stat-card">
+                    <span class="stat-label">Total Assigned</span>
+                    <span class="stat-value" id="staff-total-assigned">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Pending</span>
+                    <span class="stat-value" id="staff-pending">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Active Work</span>
+                    <span class="stat-value" id="staff-inprogress">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Resolved</span>
+                    <span class="stat-value" id="staff-resolved">0</span>
+                </div>
             </div>
-            
-            <a href="/request/create" class="btn btn-primary" id="btn-create-request" style="display: none; width: auto; gap: 0.5rem;">
-                + Submit Service Request
-            </a>
-        </div>
 
-        <!-- Requests Data Table -->
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">ID</th>
-                        <th style="width: 25%;">Title</th>
-                        <th style="width: 15%;">Category</th>
-                        <!-- Dynamic columns inserted depending on role context -->
-                        <th style="width: 15%;">Location</th>
-                        <th style="width: 12%;">Priority</th>
-                        <th style="width: 13%;">Status</th>
-                        <th style="width: 10%;">Submitted Date</th>
-                    </tr>
-                </thead>
-                <tbody id="requests-table-body">
-                    <tr>
-                        <td colspan="7" class="empty-state">
-                            <h3>Loading records...</h3>
-                            <p>Connecting to campus service registry...</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
+            <!-- 3. Requester Stats Cards -->
+            <div class="stats-grid" id="requester-stats" style="display: none;">
+                <div class="stat-card">
+                    <span class="stat-label">My Total Requests</span>
+                    <span class="stat-value" id="req-total">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Pending Work</span>
+                    <span class="stat-value" id="req-pending">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Resolved Issues</span>
+                    <span class="stat-value" id="req-resolved">0</span>
+                </div>
+            </div>
 
-    <!-- Global Footer -->
-    <footer>
-        <p>Campus Service Request Management System (CSRMS) © 2026. Advanced Software Engineering Project.</p>
-    </footer>
+            <!-- Action Controls Bar -->
+            <div class="dashboard-actions">
+                <div class="filters-bar">
+                    <select id="filter-status" class="filter-select">
+                        <option value="">All Statuses</option>
+                        <option value="SUBMITTED">Submitted</option>
+                        <option value="ASSIGNED">Assigned</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="RESOLVED">Resolved</option>
+                        <option value="CLOSED">Closed</option>
+                    </select>
+                    <select id="filter-priority" class="filter-select">
+                        <option value="">All Priorities</option>
+                        <option value="LOW">Low Priority</option>
+                        <option value="MEDIUM">Medium Priority</option>
+                        <option value="HIGH">High Priority</option>
+                        <option value="URGENT">Urgent Priority</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Requests Table -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">ID</th>
+                            <th style="width: 25%;">Subject</th>
+                            <th style="width: 15%;">Category</th>
+                            <th style="width: 15%;">Location</th>
+                            <th style="width: 12%;">Priority</th>
+                            <th style="width: 13%;">Status</th>
+                            <th style="width: 10%;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requests-table-body">
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                <h3>Loading records...</h3>
+                                <p>Connecting to campus service registry...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>Campus Service Request Management System (CSRMS) © 2026. MSc Advanced Software Engineering Project.</p>
+            </footer>
+        </div>
+    </div>
 
     <!-- Script Dependencies -->
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/dashboard.js"></script>
+    <script>
+        // Set dynamic date in banner
+        document.getElementById("current-date-text").textContent = new Date().toLocaleDateString(undefined, {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        
+        // Dynamic Role Welcome Text
+        const user = JSON.parse(localStorage.getItem("csrms_user") || "{}");
+        if (user && user.name) {
+            document.getElementById("welcome-title").textContent = `Welcome back, ${user.name.split(" ")[0]} 👋`;
+        }
+    </script>
 </body>
 </html>

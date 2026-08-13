@@ -5,79 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Service Request - CSRMS</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="data:,">
 </head>
 <body>
-    <!-- Top Navigation Header -->
-    <header class="app-header">
-        <div class="header-container">
-            <div class="logo-section">
-                <h2>CSRMS Campus Portal</h2>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <i class="fa-solid fa-hotel" style="color: #3b82f6; font-size: 1.5rem;"></i>
+                    <h2>CSRMS Portal</h2>
+                </div>
+                
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">
+                        <a href="/dashboard">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item active" id="btn-create-request" style="display: none;">
+                        <a href="/request/create">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <span>Submit Request</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="user-nav">
-                <div class="user-info">
-                    <span class="user-name" id="nav-user-name">Loading...</span>
-                    <span class="user-role-badge" id="nav-user-role">Role</span>
+
+            <!-- Profile Card -->
+            <div class="sidebar-profile">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="profile-meta">
+                        <span class="name" id="nav-user-name">Loading User...</span>
+                        <span class="role" id="nav-user-role">Role</span>
+                    </div>
                 </div>
-                <button class="btn btn-secondary" id="btn-logout" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Logout</button>
+                <button class="btn btn-secondary" id="btn-logout" style="padding: 0.6rem 1rem; width: 100%;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                </button>
             </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <div class="main-content" style="align-items: center; justify-content: center; padding: 2.5rem 1rem;">
+            <div class="details-card" style="width: 100%; max-width: 680px; box-shadow: var(--shadow-premium);">
+                <div style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between;">
+                    <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; color: #fff;">
+                        <i class="fa-solid fa-file-pen" style="color: var(--primary); margin-right: 0.5rem;"></i>
+                        <span>New Request</span>
+                    </h2>
+                    <a href="/dashboard" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Cancel</span>
+                    </a>
+                </div>
+
+                <div id="alert-msg" class="alert" style="display: none;"></div>
+
+                <form id="create-request-form">
+                    <div class="form-group">
+                        <label for="title">Short Subject Title</label>
+                        <input type="text" id="title" class="form-control" placeholder="e.g. Flickering lights in Physics Lab Room 301" required minlength="5" maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category_id">Service Category</label>
+                        <select id="category_id" class="form-control" required>
+                            <option value="">Loading categories...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location (Building, Room, Floor)</label>
+                        <input type="text" id="location" class="form-control" placeholder="e.g. Science Block, Room 301" required minlength="2" maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority Urgency Level</label>
+                        <select id="priority" class="form-control" required>
+                            <option value="LOW">LOW - Routine maintenance</option>
+                            <option value="MEDIUM" selected>MEDIUM - Standard repair request</option>
+                            <option value="HIGH">HIGH - Urgent intervention required</option>
+                            <option value="URGENT">URGENT - Building safety/utility outage</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Detailed Description</label>
+                        <textarea id="description" class="form-control" rows="5" placeholder="Specify any diagnostic details to help maintenance staff prepare..." required minlength="10" maxlength="2000"></textarea>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="width:100%;">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Submit Request</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer" style="width: 100%; max-width: 680px; background: none; border-top: none; margin-top: 2rem;">
+                <p>Campus Service Request Management System (CSRMS) © 2026. MSc Advanced Software Engineering Project.</p>
+            </footer>
         </div>
-    </header>
-
-    <!-- Main Form Container -->
-    <main class="app-container" style="max-width: 720px;">
-        <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
-            <h1 style="font-size: 1.75rem; font-weight: 700;">Submit Service Request</h1>
-            <a href="/dashboard" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Back to Dashboard</a>
-        </div>
-
-        <div class="details-card">
-            <div id="alert-msg" class="alert" style="display: none;"></div>
-
-            <form id="create-request-form">
-                <div class="form-group">
-                    <label for="title">Short Title / Subject</label>
-                    <input type="text" id="title" class="form-control" placeholder="e.g. Broken faucet in Room 402" required minlength="5" maxlength="100">
-                </div>
-
-                <div class="form-group">
-                    <label for="category_id">Problem Category</label>
-                    <select id="category_id" class="form-control" required>
-                        <option value="">Loading categories...</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="location">Location (Building, Room, Floor)</label>
-                    <input type="text" id="location" class="form-control" placeholder="e.g. Science Block, Room 102" required minlength="2" maxlength="100">
-                </div>
-
-                <div class="form-group">
-                    <label for="priority">Initial Priority Estimate</label>
-                    <select id="priority" class="form-control" required>
-                        <option value="LOW">LOW - Non-blocking issue</option>
-                        <option value="MEDIUM" selected>MEDIUM - Regular maintenance needed</option>
-                        <option value="HIGH">HIGH - Urgent repair required</option>
-                        <option value="URGENT">URGENT - Building safety/hazard issue</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="description">Detailed Description of Problem</label>
-                    <textarea id="description" class="form-control" rows="6" placeholder="Provide as much context as possible so maintenance staff can prepare tools..." required minlength="10" maxlength="2000"></textarea>
-                </div>
-
-                <div class="form-actions" style="margin-top: 2rem;">
-                    <button type="submit" class="btn btn-primary">Submit Ticket</button>
-                </div>
-            </form>
-        </div>
-    </main>
-
-    <!-- Global Footer -->
-    <footer>
-        <p>Campus Service Request Management System (CSRMS) © 2026. Advanced Software Engineering Project.</p>
-    </footer>
+    </div>
 
     <!-- Script Dependencies -->
     <script src="/js/api.js"></script>
