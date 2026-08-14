@@ -7,19 +7,41 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="data:,">
+    <script>
+        (function() {
+            const theme = localStorage.getItem("csrms_theme") || "light";
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
     <style>
         /* Modern Premium SaaS Landing Theme */
         :root {
-            --landing-bg: #03050c;
-            --landing-surface: #090e1c;
-            --landing-border: rgba(255, 255, 255, 0.05);
-            --landing-border-hover: rgba(59, 130, 246, 0.25);
-            --landing-text-primary: #ffffff;
+            --landing-bg: #0a0f1d;
+            --landing-surface: #11182f;
+            --landing-border: rgba(59, 130, 246, 0.15);
+            --landing-border-hover: rgba(59, 130, 246, 0.35);
+            --landing-text-primary: #f1f5f9;
             --landing-text-secondary: #94a3b8;
-            --landing-primary: #2563eb;
-            --landing-cyan: #06b6d4;
+            --landing-primary: #3b82f6;
+            --landing-cyan: #00f2fe;
             --landing-purple: #7c3aed;
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --nav-bg: rgba(10, 15, 29, 0.75);
+            --nav-bg-scrolled: rgba(10, 15, 29, 0.95);
+        }
+
+        :root[data-theme="light"] {
+            --landing-bg: #ffffff;
+            --landing-surface: #f0f6ff;
+            --landing-border: rgba(37, 99, 235, 0.1);
+            --landing-border-hover: rgba(37, 99, 235, 0.25);
+            --landing-text-primary: #0f172a;
+            --landing-text-secondary: #475569;
+            --landing-primary: #2563eb;
+            --landing-cyan: #2563eb;
+            --landing-purple: #3b82f6;
+            --nav-bg: rgba(255, 255, 255, 0.75);
+            --nav-bg-scrolled: rgba(255, 255, 255, 0.95);
         }
 
         body {
@@ -35,7 +57,7 @@
 
         /* 1. Professional Navbar */
         .saas-nav {
-            background: rgba(3, 5, 12, 0.75);
+            background: var(--nav-bg);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border-bottom: 1px solid var(--landing-border);
@@ -48,8 +70,8 @@
         }
 
         .saas-nav.scrolled {
-            background: rgba(3, 5, 12, 0.95);
-            border-bottom-color: rgba(255, 255, 255, 0.1);
+            background: var(--nav-bg-scrolled);
+            border-bottom-color: var(--landing-border);
         }
 
         .nav-container {
@@ -615,6 +637,9 @@
             <div class="nav-ctas">
                 <a href="/login" class="nav-link-btn">Sign In</a>
                 <a href="/register" class="nav-primary-btn">Get Started</a>
+                <button class="theme-toggle-btn" id="landing-theme-toggle" title="Toggle Theme" style="background: none; border: none; color: var(--landing-text-secondary); cursor: pointer; font-size: 1.1rem; padding: 0.5rem; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); transition: var(--transition);">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
             </div>
 
             <!-- Hamburger Button for Mobile -->
@@ -903,5 +928,6 @@
             window.location.replace("/dashboard");
         }
     </script>
+    <script src="/js/theme.js"></script>
 </body>
 </html>

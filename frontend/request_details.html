@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="data:,">
+    <script>
+        (function() {
+            const theme = localStorage.getItem("csrms_theme") || "light";
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
 </head>
 <body>
     <div class="app-layout">
@@ -44,6 +50,9 @@
                         <span class="name" id="nav-user-name">Loading User...</span>
                         <span class="role" id="nav-user-role">Role</span>
                     </div>
+                    <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme" style="margin-left: auto; background: none; border: none; color: var(--text-sub); cursor: pointer; font-size: 1.15rem; padding: 0.5rem; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); transition: var(--transition);">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
                 </div>
                 <button class="btn btn-secondary" id="btn-logout" style="padding: 0.6rem 1rem; width: 100%;">
                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -56,7 +65,7 @@
         <div class="main-content">
             <!-- Details Header -->
             <div style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.85rem; font-weight: 700; color: #fff;">
+                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.85rem; font-weight: 700; color: var(--text-title);">
                     <i class="fa-solid fa-circle-info" style="color: var(--primary); margin-right: 0.5rem;"></i>
                     <span>Request Details</span>
                     <span id="detail-id" style="color: var(--text-sub); font-size: 1.25rem; font-weight: 500; margin-left: 0.5rem;">#...</span>
@@ -139,6 +148,7 @@
     </div>
 
     <!-- Script Dependencies -->
+    <script src="/js/theme.js"></script>
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/request.js"></script>
